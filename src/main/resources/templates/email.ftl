@@ -6,9 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Spring Boot Email using FreeMarker</title>
 </head>
-<body>
+<body style="background-color:powderblue;">
 <div style="margin-top: 10px">Greetings, ${user}</div>
-<div>Your username is <b>${user}</b></div>
+<div>Hope you are fine. we wish you a Merry Christmas & a Happy new Year</div>
+<div>Your Buddy Coder is <b>${Buddy_coder}</b></div>
 <br/>
 <div> Have a nice day..!</div>
 </body>

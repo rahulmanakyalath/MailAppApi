@@ -23,7 +23,7 @@ public class RkMailApplication {
 	}
 		@EventListener(ApplicationReadyEvent.class)
 				public void sendMail() throws MessagingException, IOException, TemplateException {
-		senderService.sendMailWithAttachment("rahulydp1631d@gmail.com","Learning","rahul","C:/Users/rahul/Desktop/Resume Rahul Kumar Ms.pdf");
+	//	senderService.sendMailWithAttachment("rahulydp1631d@gmail.com","Learning","rahul","C:/Users/rahul/Desktop/Resume Rahul Kumar Ms.pdf");
 
 		}
 

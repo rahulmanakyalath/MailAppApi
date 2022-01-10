@@ -1,5 +1,6 @@
 package com.example.RkMail.services;
 
+import com.example.RkMail.dtos.EmailDtos;
 import freemarker.template.Configuration;
 import freemarker.template.TemplateException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,12 +33,11 @@ public class EmailSenderService {
     public void sendMailWithAttachment(String toEmail,String subject,String body,String Attachment) throws MessagingException, IOException, TemplateException {
         MimeMessage mimeMessage = mailSender.createMimeMessage();
         MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage,true);
-        String emailContent = getEmailContent(body);
+        String emailContent = getEmailContent(subject,body);
         mimeMessageHelper.setFrom("rahulmanakyalath@gmail.com");
         mimeMessageHelper.setTo(toEmail);
         mimeMessageHelper.setText(emailContent,true);
         mimeMessageHelper.setSubject(subject);
-
 
         FileSystemResource fileSystemResource = new FileSystemResource(new File(Attachment));
         mimeMessageHelper.addAttachment(fileSystemResource.getFilename(),fileSystemResource);
@@ -45,10 +45,11 @@ public class EmailSenderService {
         System.out.println("mail send successfully");
 
     }
-    String getEmailContent(String user) throws IOException, TemplateException {
+    String getEmailContent(String subject,String buddy) throws IOException, TemplateException {
         StringWriter stringWriter = new StringWriter();
         Map<String, Object> model = new HashMap<>();
-        model.put("user", user);
+        model.put("user",subject);
+        model.put("Buddy_coder",buddy);
         configuration.getTemplate("email.ftl").process(model, stringWriter);
         return stringWriter.getBuffer().toString();
     }
