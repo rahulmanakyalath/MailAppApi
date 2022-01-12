@@ -1,26 +1,30 @@
 package com.example.RkMail.dtos;
 
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+
 public class EmailDtos {
     String receiverMailId;
     String subject;
     String body;
-    String attachment;
+    MultipartFile attachment;
 
     public EmailDtos() {
     }
 
-    public EmailDtos(String receiverMailId, String subject, String body,String attachment) {
+    public EmailDtos(String receiverMailId, String subject, String body, MultipartFile attachment) {
         this.receiverMailId = receiverMailId;
         this.subject = subject;
         this.body = body;
         this.attachment=attachment;
     }
 
-    public String getAttachment() {
+    public MultipartFile getAttachment() {
         return attachment;
     }
 
-    public void setAttachment(String attachment) {
+    public void setAttachment(MultipartFile attachment) {
         this.attachment = attachment;
     }
 

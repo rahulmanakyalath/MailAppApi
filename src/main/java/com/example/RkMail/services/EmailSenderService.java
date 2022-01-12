@@ -8,12 +8,15 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,7 +33,7 @@ public class EmailSenderService {
     }
 
 
-    public void sendMailWithAttachment(String toEmail,String subject,String body,String Attachment) throws MessagingException, IOException, TemplateException {
+    public void sendMailWithAttachment(String toEmail, String subject, String body, MultipartFile Attachment) throws MessagingException, IOException, TemplateException {
         MimeMessage mimeMessage = mailSender.createMimeMessage();
         MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage,true);
         String emailContent = getEmailContent(subject,body);
@@ -39,8 +42,10 @@ public class EmailSenderService {
         mimeMessageHelper.setText(emailContent,true);
         mimeMessageHelper.setSubject(subject);
 
-        FileSystemResource fileSystemResource = new FileSystemResource(new File(Attachment));
-        mimeMessageHelper.addAttachment(fileSystemResource.getFilename(),fileSystemResource);
+        File file = new File(Attachment.getOriginalFilename());
+        Path path = Paths.get(file.getAbsolutePath());
+        FileSystemResource fileSystemResource = new FileSystemResource(path.getFileName());
+        mimeMessageHelper.addAttachment(fileSystemResource.getFilename(), Attachment);
         mailSender.send(mimeMessage);
         System.out.println("mail send successfully");
 
