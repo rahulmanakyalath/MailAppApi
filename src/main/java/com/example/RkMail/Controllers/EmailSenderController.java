@@ -22,7 +22,7 @@ public class EmailSenderController {
     public EmailSenderService emailSenderService;
 
     @PostMapping("/sendmail")
-    public ResponseEntity<String> sendEmailDetails(@ModelAttribute @RequestPart final EmailDtos emailDtos){
+    public ResponseEntity<String> sendEmailDetails(@ModelAttribute final EmailDtos emailDtos){
         try{
             emailSenderService.sendMailWithAttachment(emailDtos.getReceiverMailId(),emailDtos.getSubject(),emailDtos.getBody(),emailDtos.getAttachment());
             return ResponseEntity.created(new URI("http://localhost:8089/spring-mail-app/api/v1/sendmail/")).build();

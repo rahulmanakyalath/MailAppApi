@@ -41,11 +41,8 @@ public class EmailSenderService {
         mimeMessageHelper.setTo(toEmail);
         mimeMessageHelper.setText(emailContent,true);
         mimeMessageHelper.setSubject(subject);
-
-        File file = new File(Attachment.getOriginalFilename());
-        Path path = Paths.get(file.getAbsolutePath());
-        FileSystemResource fileSystemResource = new FileSystemResource(path.getFileName());
-        mimeMessageHelper.addAttachment(fileSystemResource.getFilename(), Attachment);
+        FileSystemResource fileSystemResource = new FileSystemResource(Attachment.getOriginalFilename());
+        mimeMessageHelper.addAttachment(fileSystemResource.getFilename(),Attachment);
         mailSender.send(mimeMessage);
         System.out.println("mail send successfully");
 
